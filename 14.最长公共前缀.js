@@ -9,27 +9,26 @@
  * @param {string[]} strs
  * @return {string}
  */
-var longestCommonPrefix = function(strs) {
+var longestCommonPrefix = function (strs) {
+  if (strs.length == 1) return strs[0];
+  const strsArr = strs.sort((a, b) => (a.length - b.length))
+  const minLengthArr = strsArr[0].split('');
+  let res = '';
 
-  const strsArr = strs.sort((a,b) => (a.length - b.length))
-
-  // console.log(strsArr)
-
-const currentStr = strsArr[0]
-
-  return strsArr.reduce((res, curr, index) => {
-    console.log(curr,currentStr)
-    if(!currentStr) return '';
-    if(!curr.startsWith(currentStr)) {
-      return currentStr.slice(0, -1)
-    }else {
-      return currentStr
+  for (let i = 0; i < minLengthArr.length; i++) {
+    res = strsArr[0].slice(0, i + 1);
+    const isAllStartWith = strs.every(item => item.startsWith(res));
+    if (!isAllStartWith) {
+      return res.slice(0, -1);
     }
-  }, '')
+  }
+
+  return res
 };
 
-console.log(longestCommonPrefix(["flower","flow","flight"]))
-// console.log(longestCommonPrefix(["dog","racecar","car"]))
+// console.log(longestCommonPrefix(["ab", "a"]))
+// console.log(longestCommonPrefix(["flower", "flow", "flight"]))
+// console.log(longestCommonPrefix(["dog", "racecar", "car"]))
 
 // @lc code=end
 
